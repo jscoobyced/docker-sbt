@@ -1,4 +1,4 @@
-Small image (alpine based) for Scala Build Tool (sbt).
+Small image (alpine based) for Simple Build Tool (sbt).
 
 Current versions:
 - Open JDK: 11
