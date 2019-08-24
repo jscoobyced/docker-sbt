@@ -1,4 +1,4 @@
-FROM jscdroiddev:docker-openjdk
+FROM jscdroiddev/docker-openjdk:latest
 
 LABEL maintainer="JscDroidDev"
 
