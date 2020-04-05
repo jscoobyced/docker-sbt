@@ -1,15 +1,8 @@
-FROM jscdroiddev/docker-openjdk:latest
+FROM openjdk:11-jdk
 
 LABEL maintainer="JscDroidDev"
-
-ENV SBT_VERSION 1.2.8
-
-RUN apk --no-cache add curl bash
-RUN curl -Ls "https://piccolo.link/sbt-${SBT_VERSION}.tgz" -o /tmp/sbt-${SBT_VERSION}.tgz \
-    && tar -zx -C /var/lib -f /tmp/sbt-${SBT_VERSION}.tgz
-RUN apk del curl
-
-ENV SBT_HOME /var/lib/sbt
-ENV PATH ${PATH}:${SBT_HOME}/bin
-
-RUN sbt about
+ENV DEBIAN_FRONTEND noninteractive
+RUN set -ex; apt-get update && apt-get -qqy upgrade && apt-get install -qqy apt-utils curl
+RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+RUN set -ex; curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add
+RUN set -ex; apt-get update && apt-get install -qqy sbt && apt-get purge -qqy curl && apt-get -qqy autoremove --purge
